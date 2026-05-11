@@ -4,7 +4,7 @@
 
 FIX: The Python SDK `ProxyShare` now rejects absolute proxy request paths before forwarding. This prevents a viewer from using an absolute URL path to make the proxy host request arbitrary internal or loopback services instead of the configured target.
 
-FIX: Updated Python SDK unit tests to patch `zrok2.*` modules instead of the legacy `zrok.*` package path, allowing the non-integration test suite to pass against the v2 Python package layout.
+FIX: Updated Python SDK unit tests to patch  `zrok2.*` modules instead of the legacy `zrok.*` package path, allowing the non-integration test suite to pass against the v2 Python package layout.
 
 FIX: The zrok2 Docker Compose self-hosting metrics service now defaults to `influxdb:2.8-alpine` instead of the floating `influxdb:2-alpine` tag to avoid upstream image regressions. Docker Compose integration test failures now also include compose service status, container health details, and focused InfluxDB logs for faster diagnosis.
 
