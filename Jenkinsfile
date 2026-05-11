@@ -11,7 +11,7 @@ pipeline {
         stage('Run Unit Tests') {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh '/usr/local/bin/phpunit --log-junit results.xml tests/'
+                    sh 'phpunit --do-not-cache tests'
                 }
             }
         }
