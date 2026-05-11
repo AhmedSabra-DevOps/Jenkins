@@ -1,37 +1,30 @@
 pipeline {
-    agent any
-
+    agent { label 'node-agent' }
+    triggers {
+        githubPush()
+    }
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/ahmedsamyabdullah/digi-jenkins-lab.git'
+                git url: 'https://github.com/AhmedSabra-DevOps/Jenkins.git', branch: 'master'
             }
         }
 
-        stage('Run Unit Tests') {
-            steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh 'phpunit --do-not-cache tests'
-                }
-            }
-        }
+        
 
-        stage('Display Results') {
+        stage('Run PHPUnit Tests') {
             steps {
-                junit 'results.xml'
+                sh 'phpunit tests/OrderTest.php tests/SubscriptionTest.php'
             }
         }
     }
 
     post {
-        always {
-            echo 'Pipeline job finished.'
-        }
         success {
-            echo 'Congratulations! All tests passed successfully.'
+            echo 'All tests passed!'
         }
         failure {
-            echo 'The code failed the tests! Please check the Test Result trend for details.'
+            echo 'Tests failed — build marked as FAILED.'
         }
     }
 }
